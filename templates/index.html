@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Price Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            color: #333;
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        button {
+            background: #e74c3c;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #c0392b;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="{{ url_for('predict')}}" method="post">
+            <h2>Car Price Predictor</h2>
+            <h3>Year</h3>
+            <input id="first" name="Year" type="number" placeholder="Enter the year" required>
+            <h3>Showroom Price (In lakhs)</h3>
+            <input id="second" name="Present_Price" type="number" step="0.01" placeholder="Enter the showroom price" required>
+            <h3>Kilometers Driven</h3>
+            <input id="third" name="Kms_Driven" type="number" placeholder="Enter kilometers driven" required>
+            <h3>Number of Previous Owners</h3>
+            <input id="fourth" name="Owner" type="number" min="0" max="3" placeholder="Enter number of owners" required>
+            <h3>Fuel Type</h3>
+            <select name="Fuel_Type_Petrol" id="fuel" required>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="CNG">CNG</option>
+            </select>
+            <h3>Seller Type</h3>
+            <select name="Seller_Type_Individual" id="resea" required>
+                <option value="Dealer">Dealer</option>
+                <option value="Individual">Individual</option>
+            </select>
+            <h3>Transmission Type</h3>
+            <select name="Transmission_Mannual" id="research" required>
+                <option value="Manual">Manual</option>
+                <option value="Automatic">Automatic</option>
+            </select>
+            <button id="sub" type="submit">Calculate Selling Price</button>
+        </form>
+        <div class="result">
+            {{ prediction_text }}
+        </div>
+    </div>
+</body>
+
+</html>
